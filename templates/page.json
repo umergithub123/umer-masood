@@ -1,14 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "hero_banner_zn8cJC": {
+      "type": "hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "logo": "shopify://shop_images/logo_image.png",
+        "top_bar_text": "<p>Find the ideal gift for your loved ones.</p>",
+        "top_button_link": "#",
+        "top_button_text": "choose gift",
+        "title": "The Gift Guide",
+        "content_text": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "content_button_url": "#",
+        "content_button": "Shop Now",
+        "footer_text": "<p>SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "hero_banner_zn8cJC"
   ]
 }
