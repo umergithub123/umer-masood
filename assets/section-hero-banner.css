@@ -1,0 +1,364 @@
+.banner-hero__top-bar {
+  padding: 23px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #F5F5F5;
+}
+
+.logo_image {
+  max-width: 151px;
+  height: auto;
+}
+
+.banner-hero__top-bar-text {
+  font-size: 16px;
+  line-height: 13.42px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #000000;
+}
+
+.banner-hero__top-bar-text p {
+  margin: 0;
+}
+
+.banner-hero__top-bar-button {
+  width: 244px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFF544;
+  cursor: pointer;
+}
+
+.button-animation {
+  transition: .3s ease-in-out;
+}
+
+.banner-hero__top-bar-button:hover {
+  background: black;
+}
+
+.banner-hero__top-bar-button:hover .banner-hero__top-bar-button-anchor {
+  color: white;
+}
+
+.banner-hero__top-bar-button:hover path {
+  fill: white;
+}
+
+.banner-hero__top-bar-button .banner-hero__top-bar-button-anchor {
+  font-size: 16px;
+  line-height: 20.48px;
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  gap: 47px;
+}
+
+.banner-hero-image .banner-image {
+  width: 100%;
+}
+
+.banner-hero__image {
+  position: relative;
+}
+
+.banner-hero-content {
+  position: absolute;
+  left: 176px;
+  bottom: 100px;
+}
+
+.banner-hero-content__title {
+  color: black;
+  line-height: 100%;
+  letter-spacing: 0;
+  font-size: 30px;
+  padding-bottom: 80px;
+}
+
+.banner-hero-content__text {
+  line-height: 130%;
+  font-size: 16px;
+  letter-spacing: 0;
+  color: black;
+  max-width: 1137px;
+  padding-bottom: 117px;
+}
+
+.banner-hero-content__text p {
+  margin: 0;
+}
+
+.banner-hero-content__button {
+  width: 193px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.banner-hero-content__button:hover {
+  background: white;
+}
+
+.banner-hero-content__button:hover .banner-hero-content__button-anchor {
+  color: black;
+}
+
+.banner-hero-content__button:hover .banner-hero-content__button-anchor path {
+  fill: black;
+}
+
+.banner-hero-content__button .banner-hero-content__button-anchor {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.banner-hero-content__button .banner-hero-content__button-anchor path {
+  fill: white;
+}
+
+.banner-hero__footer-text {
+  display: flex;
+  justify-content: center;
+  background: #F5F5F5;
+  padding: 26.67px 0;
+  font-size: 14px;
+  line-height: 35.8px;
+  letter-spacing: 0;
+  color: #000000;
+}
+
+.banner-hero__footer-text p {
+  margin: 0;
+}
+
+.banner-hero-logo {
+    line-height: 0;
+}
+
+.banner-hero .placeholder-svg {
+  display: block;
+}
+
+@media (max-width: 2560px) {
+  .banner-hero-content__button-anchor svg {
+    width: 24px;
+  }
+
+  .banner-hero__top-bar-button-anchor {
+    gap: 30px;
+  }
+
+  .banner-hero__top-bar-button-anchor svg {
+    width: 28.29px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .banner-hero__top-bar-button {
+    width: 207px;
+  }
+  
+  .banner-hero__top-bar-button-anchor svg {
+    width: 24px;
+  }
+
+  .banner-hero__top-bar {
+    padding: 22.5px 50.78px;
+  }
+
+  .banner-hero-content {
+    left: 67px;
+    bottom: 51px;
+  }
+
+  .banner-hero-content__title {
+    padding-bottom: 50px;
+    font-size: 70px;
+  }
+
+  .banner-hero-content__text {
+    max-width: 483px;
+    font-size: 20px;
+    line-height: 140%;
+    padding-bottom: 50px;
+  }
+
+  .banner-hero-content__button {
+    width: 220px;
+    height: 50px;
+  }  
+
+  .banner-hero__top-bar-button .banner-hero__top-bar-button-anchor {
+    gap: 18px;
+  }
+
+  .banner-hero-content__button .banner-hero-content__button-anchor {
+    gap: 30px;
+  }
+
+  .banner-hero__footer-text {
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 13.42px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .banner-hero__footer-text {
+    font-size: 42.67px;
+  }
+
+  .banner-hero-content__button .banner-hero-content__button-anchor {
+    gap: 68px;
+  }
+
+  .banner-hero-content__button {
+    width: 517px;
+    height: 117px;
+    font-size: 37.66px;
+    line-height: 48.21px;
+  }
+
+  .banner-hero-content__text {
+    line-height: 140%;
+    font-size: 47.08px;
+    max-width: 1137px;
+  }
+
+  .banner-hero-content__title {
+    font-size: 164.78px;
+    padding-bottom: 117px;
+  }
+
+  .banner-hero__top-bar {
+    padding: 26.67px 375.57px;
+  }
+  
+  .logo_image {
+    max-width: 403px;
+  }
+
+  .banner-hero__top-bar-text {
+    font-size: 42.67px;
+    line-height: 35.8px;
+  }
+
+  .banner-hero__top-bar-button {
+    width: 552px;
+    height: 117px;
+  }
+
+  .banner-hero__top-bar-button .banner-hero__top-bar-button-anchor {
+    font-size: 42.67px;
+    line-height: 54.61px;
+  }
+
+  .banner-hero-content {
+    left: 376px;
+    bottom: 219px;
+  }
+}
+
+@media (min-width: 749px) {
+  .desktop-hide {
+    display: none;
+  }
+}
+
+@media (max-width: 749px) {
+  .mobile-hide {
+    display: none;
+  }
+
+  .banner-hero__top-bar {
+    justify-content: center;
+    position: relative;
+    box-shadow: 0px 2px 4px 0px #00000026;
+  }
+
+  .banner-hero__mobile-menu-icon.desktop-hide {
+    position: absolute;
+    left: 16px;
+    cursor: pointer;
+  }
+
+  .banner-hero__menu {
+    position: absolute;
+    top: 100%;
+    padding: 25px 0;
+    background: #F2F2F2;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    z-index: 1;
+  }
+
+  .banner-hero__mobile-menu-icon.desktop-hide.active ~ .banner-hero__menu {
+    display: flex !important;
+  }  
+  
+  .banner-hero__top-bar-button .banner-hero__top-bar-button-anchor {
+    position: relative;
+  }
+
+  .banner-hero__top-bar-button-anchor svg {
+    position: absolute;
+    right: -53px;
+  }
+
+  .banner-hero__mobile-menu-icon.desktop-hide.active .banner-hero_icon-open {
+    display: none;
+  }
+
+  .banner-hero__mobile-menu-icon.desktop-hide.active .banner-hero_icon-close {
+    display: block !important;
+  }
+
+  .banner-hero__title-text.desktop-hide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .banner-hero-content__title {
+    padding-top: 50px;
+    padding-bottom: 24px;
+  }
+
+  .banner-hero-content__text {
+    max-width: 340px;
+    padding-bottom: 12px;
+  }
+
+  .banner-hero-content {
+    left: 50%;
+    bottom: 39px;
+    transform: translate(-50%);
+  }
+
+  .banner-hero__footer-text {
+    padding: 10px 0;
+    font-size: 14px;
+    line-height: 13.42px;
+  }
+}
