@@ -31,10 +31,70 @@
         "content_button": "Shop Now",
         "footer_text": "<p>SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>"
       }
+    },
+    "product_grid_rFxiiM": {
+      "type": "product-grid",
+      "blocks": {
+        "grid_block_Af7KG3": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_822.jpg",
+            "product": "black-leather-bag"
+          }
+        },
+        "grid_block_K3CYHE": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_823.jpg",
+            "product": ""
+          }
+        },
+        "grid_block_AMbzgc": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_824.jpg",
+            "product": ""
+          }
+        },
+        "grid_block_tawc3C": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_825.jpg",
+            "product": ""
+          }
+        },
+        "grid_block_X3XP4H": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_826.jpg",
+            "product": ""
+          }
+        },
+        "grid_block_UnBPtj": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_827.jpg",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "grid_block_Af7KG3",
+        "grid_block_K3CYHE",
+        "grid_block_AMbzgc",
+        "grid_block_tawc3C",
+        "grid_block_X3XP4H",
+        "grid_block_UnBPtj"
+      ],
+      "name": "Product Grid",
+      "settings": {
+        "title": "Tisso vison in the wild"
+      }
     }
   },
   "order": [
     "main",
-    "hero_banner_zn8cJC"
+    "hero_banner_zn8cJC",
+    "product_grid_rFxiiM"
   ]
 }
