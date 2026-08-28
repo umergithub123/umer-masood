@@ -1,0 +1,63 @@
+{{ 'section-product-grid.css' | asset_url| stylesheet_tag }}
+
+<div class="product-grid">
+  <div class="product-grid__page-width">
+    <div class="product-grid__title">
+      {{ section.settings.title }}
+    </div>
+    
+    <div class="product-grid__grid">
+      {% for block in section.blocks %}
+        <div class="product-grid__grid-image">
+          {{ block.settings.image
+            | image_url: width: 800
+            | image_tag :
+            width: block.settings.image.width, 
+            height: block.settings.image.height,
+            sizes: "33vw",
+            widths: '450, 660, 900',
+            loading: 'lazy',
+            class: 'grid-image-tag'
+          }}
+        </div>  
+      {% endfor %}  
+    </div>  
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "product grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "grid_block",
+      "name": "grid block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Cover Image",
+          "id": "image"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid"
+    }
+  ]
+}
+{% endschema %}

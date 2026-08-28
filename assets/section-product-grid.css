@@ -1,0 +1,31 @@
+.product-grid__page-width {
+  max-width: 1337px;
+  margin: auto;
+  padding: 90px 0 51px;
+}
+
+.product-grid__title {
+    font-family: Lustria;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 120%;
+    letter-spacing: 0;
+    color: black;
+    padding-bottom: 30px;
+}
+
+.product-grid__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 19px;
+}
+
+.product-grid__grid-image {
+    width: 433px;
+    height: 444px;
+}
+
+.grid-image-tag {
+    width: 100%;
+    height: auto;
+}
