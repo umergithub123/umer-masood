@@ -29,3 +29,140 @@
     width: 100%;
     height: auto;
 }
+
+.product-grid__grid-image {
+    position: relative;
+}
+
+.product-grid__button {
+    cursor: pointer;
+}
+
+quick-view-template {
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, 0.2);
+    width: 100%;
+    left: 0;
+    height: 100%;
+    display: none;
+    z-index: 1;
+}
+
+.quick-view__holder {
+    max-width: 311px;
+    max-height: 447px;
+    background: white;
+    box-shadow: 0px 2px 4px 0px #00000033;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 36px 17px 25px;
+}
+
+quick-view-template.active {
+    display: flex;
+}
+
+.quick-view__holder .quick-view__image-tag {
+    width: 100%;
+    width: 120px;
+    height: 140px;
+}
+
+.quick-view__content-top {
+    display: flex;
+    gap: 8px;
+}
+
+.quick-view__info {
+    padding-top: 13px;
+}
+
+.quick-view__title {
+    font-size: 16px;
+    line-height: 120%;
+    color: black;
+    padding-bottom: 20px;
+    letter-spacing: 0;
+}
+
+.quick-view__price {
+    font-size: 16px;
+    line-height: 120%;
+    font-family: lustria;
+    padding-bottom: 12px;
+    letter-spacing: 0;
+}
+
+.quick-view__description p {
+    font-size: 14px;
+    margin: 0;
+    line-height: 110%;
+    letter-spacing: -1%;
+}
+
+.quick-view__content-bottom {
+    padding-top: 10px;
+}
+
+.swatch-label {
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: 0;
+    color: #333333;
+    padding-bottom: 6px;
+}
+
+.color-swatch-holder {
+    width: 50%;
+    display: flex;
+    height: 40px;
+    border: .5px solid #000000;
+    align-items: center;
+    cursor: pointer;
+}
+
+.color-swatch-button {
+    font-size: 18px;
+    letter-spacing: -2%;
+    padding-left: 9.9px;
+}
+
+.color-swatches {
+    display: flex;
+    margin-bottom: 11px;
+}
+
+div.color-swatch__color {
+    display: block;
+    width: 5px;
+    height: 100%;
+    border: 0.5px solid black;
+}
+
+.quick-view__add-to-cart-holder {
+    display: flex;
+    height: 45px;
+    background: black;
+    border: none;
+    color: white;
+    font-size: 16px;
+    line-height: 20.48px;
+    text-transform: uppercase;
+    width: 100%;
+    align-items: center;
+    gap: 28px;
+    margin-top: 51px;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.quick-view__close {
+    display: inline;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    cursor: pointer;
+}

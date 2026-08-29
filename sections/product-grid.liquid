@@ -19,11 +19,85 @@
             loading: 'lazy',
             class: 'grid-image-tag'
           }}
+
+          <style>
+            .product-grid__button-{{ block.id }} {
+              position: absolute;
+              left: {{ block.settings.horizontal_position }}%;
+              top: {{ block.settings.vertical_position }}%;
+              transform: translate(-50%);
+            }
+          </style>
+          <div 
+            class="product-grid__button product-grid__button-{{ block.id }}"
+            data-template="template-{{ block.id }}"
+          >
+            {% render 'quick-view-open' %}
+          </div>
+
+          {% assign product = block.settings.product %}
+          <quick-view-template>
+            <div class="quick-view__holder">
+              <div class="quick-view__close">
+              </div>
+              <div class="quick-view__content-top">
+                <div class="quick-view__image">
+                  {{ product.featured_image |
+                    image_url: width: 120 |
+                    image_tag:
+                    width: product.featured_image.width,
+                    height: product.featured_image.height,
+                    loading: 'lazy',
+                    class: 'quick-view__image-tag'
+                  }}
+
+                </div>
+                <div class="quick-view__info">
+                  <div class="quick-view__title">{{ product.title | escape }}</div>
+                  <div class="quick-view__price">{{ product.selected_or_first_available_variant.price | money_with_currency }}</div>
+                  <div class="quick-view__description">{{ product.description | truncatewords: 10 }}</div>
+                </div>
+              </div>
+              <div class="quick-view__content-bottom">
+                {% for option in product.options_with_values %}
+                  <div class="swatch-label">{{ option.name | escape }}</div>
+                  {% if option.name == 'color' or option.name == 'colour' or option.name == 'Color' %}
+                    <div class="color-swatches">
+                      {% for value in option.values %}
+                        <div class="color-swatch-holder">
+                          <div class="color-swatch__color" style="background: {{ value | handle }};"></div>
+                          <div class="color-swatch-button">{{ value | escape }}</div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {% comment %} <div class="select-swatches">
+                      <select>
+                        {% for value in option.values %}
+                          <option value="{{ value }}">{{ value }}</option>
+                        {% endfor %}  
+                      </select>  
+                    </div>   {% endcomment %}
+                    {% render 'custom-select', option: option, product: product %}
+                  {% endif %}    
+                {% endfor %}  
+              </div>
+               
+              <div class="quick-view__add-to-cart-holder">
+                <div class="quick-view__add-to-cart">Add To Cart</div>
+                <div class="quick-view__cart-icon">{% render 'cart-button-icon' %}</div>
+              </div>
+
+              <div class="quick-view__close">{% render 'quick-view-close' %}</div>
+            </div>
+          </quick-view-template>  
         </div>  
       {% endfor %}  
     </div>  
   </div>
 </div>
+
+{{ 'product-grid.js' | asset_url | script_tag }}
 
 {% schema %}
 {
@@ -45,6 +119,24 @@
           "type": "image_picker",
           "label": "Cover Image",
           "id": "image"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "label": "Horizontal Position",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "label": "Vertical Position",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "default": 80
         },
         {
           "type": "product",

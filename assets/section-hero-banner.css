@@ -31,14 +31,24 @@
   justify-content: center;
   background: #FFF544;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
-.button-animation {
-  transition: .3s ease-in-out;
+.banner-hero__top-bar-button:before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: right .3s, opacity .3s;
 }
 
-.banner-hero__top-bar-button:hover {
-  background: black;
+.banner-hero__top-bar-button:hover:before {
+  right: 0;
+  opacity: 1;
 }
 
 .banner-hero__top-bar-button:hover .banner-hero__top-bar-button-anchor {
@@ -60,10 +70,13 @@
   display: flex;
   align-items: center;
   gap: 47px;
+  z-index: 0;
 }
 
 .banner-hero-image .banner-image {
   width: 100%;
+  display: block;
+  height: auto;
 }
 
 .banner-hero__image {
@@ -173,7 +186,7 @@
 
 @media (min-width: 749px) {
   .desktop-hide {
-    display: none;
+    display: none !important;
   }
 
   .banner-hero-content {
@@ -316,7 +329,7 @@
 
 @media (max-width: 749px) {
   .mobile-hide {
-    display: none;
+    display: none !important;
   }
 
   .banner-hero__top-bar {
