@@ -1,14 +1,114 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "hero_banner_zn8cJC": {
+      "type": "hero-banner",
+      "name": "Hero Banner",
+      "settings": {
+        "logo": "shopify://shop_images/logo_image.png",
+        "top_bar_text": "<p>Find the ideal gift for your loved ones.</p>",
+        "top_button_link": "#",
+        "top_button_text": "choose gift",
+        "desktop_image": "shopify://shop_images/bg-banner.jpg",
+        "mobile_image": "shopify://shop_images/banner-mobile-bg.png",
+        "title": "The Gift Guide",
+        "content_text": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "content_button_url": "#",
+        "content_button": "Shop Now",
+        "footer_text": "<p>SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>"
+      }
+    },
+    "product_grid_rFxiiM": {
+      "type": "product-grid",
+      "blocks": {
+        "grid_block_Af7KG3": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_822.jpg",
+            "horizontal_position": 61,
+            "vertical_position": 54,
+            "product": "black-leather-bag"
+          }
+        },
+        "grid_block_K3CYHE": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_823.jpg",
+            "horizontal_position": 50,
+            "vertical_position": 80,
+            "product": "blue-silk-tuxedo"
+          }
+        },
+        "grid_block_AMbzgc": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_824.jpg",
+            "horizontal_position": 50,
+            "vertical_position": 80,
+            "product": "chequered-red-shirt"
+          }
+        },
+        "grid_block_tawc3C": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_825.jpg",
+            "horizontal_position": 50,
+            "vertical_position": 80,
+            "product": "classic-leather-jacket"
+          }
+        },
+        "grid_block_X3XP4H": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_826.jpg",
+            "horizontal_position": 50,
+            "vertical_position": 80,
+            "product": "classic-varsity-top"
+          }
+        },
+        "grid_block_UnBPtj": {
+          "type": "grid_block",
+          "settings": {
+            "image": "shopify://shop_images/image_827.jpg",
+            "horizontal_position": 50,
+            "vertical_position": 80,
+            "product": "dark-denim-top"
+          }
+        }
+      },
+      "block_order": [
+        "grid_block_Af7KG3",
+        "grid_block_K3CYHE",
+        "grid_block_AMbzgc",
+        "grid_block_tawc3C",
+        "grid_block_X3XP4H",
+        "grid_block_UnBPtj"
+      ],
+      "name": "Product Grid",
+      "settings": {
+        "title": "Tisso vison in the wild"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "hero_banner_zn8cJC",
+    "product_grid_rFxiiM"
   ]
 }

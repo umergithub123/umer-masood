@@ -1,0 +1,226 @@
+<style>
+  .select-swatches {
+    width: 100%;
+    max-width: 280px;
+    font-family: inherit;
+  }
+
+  .select-swatches__label {
+    display: none;
+    font-size: 14px;
+    color: #111;
+    margin-bottom: 6px;
+  }
+
+  .select-swatches__control {
+    position: relative;
+  }
+
+  .select-swatches__native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .select-swatches__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0 13px;
+    background: #fff;
+    border: 1px solid #111;
+    font-size: 15px;
+    color: #111;
+    cursor: pointer;
+    font-family: inherit;
+    height: 40px;
+  }
+
+  .select-swatches__text-icon {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
+
+  .select-swatches__icon {
+    width: 55px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #111;
+  }
+
+  .select-swatches__chevron {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .select-swatches.is-open .select-swatches__chevron {
+    transform: rotate(180deg);
+  }
+
+  .select-swatches__options {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #111;
+    border-top: none;
+    z-index: 10;
+  }
+
+  .select-swatches__options[hidden] {
+    display: none;
+  }
+
+  .select-swatches__options li {
+    text-align: center;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: #111;
+    cursor: pointer;
+  }
+
+  .select-swatches__options li:hover,
+  .select-swatches__options li:focus {
+    background: #f2f2f2;
+    outline: none;
+  }
+
+  .select-swatches__options li[aria-selected="true"] {
+    font-weight: 600;
+  }
+</style>
+
+<div class="select-swatches" data-custom-select data-option-index="{{ option_index }}">
+  <label class="select-swatches__label">{{ option.name }}</label>
+  <div class="select-swatches__control">
+    <select
+      class="select-swatches__native"
+      name="options[{{ option.name }}]"
+      data-option-select
+    >
+      <option value="" disabled {% if option.selected_value == blank %}selected{% endif %}>Choose your {{ option.name | downcase }}</option>
+      {% for value in option.values %}
+        <option value="{{ value }}" {% if value == option.selected_value %}selected{% endif %}>{{ value }}</option>
+      {% endfor %}
+    </select>
+
+    <button
+      type="button"
+      class="select-swatches__trigger"
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      data-select-trigger
+    >
+      <div class="select-swatches__text-icon">
+        <span data-select-value>Choose Your Size</span>
+        <div class="select-swatches__icon">
+          <svg class="select-swatches__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </div>
+    </button>
+
+    <ul class="select-swatches__options" role="listbox" data-select-options hidden>
+      {% for value in option.values %}
+        <li role="option" data-value="{{ value }}" tabindex="0">{{ value }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<script>
+  function initCustomSelects(scope) {
+    scope = scope || document;
+    var roots = scope.querySelectorAll('[data-custom-select]:not([data-select-initialized])');
+    roots.forEach(function (root) {
+      root.setAttribute('data-select-initialized', 'true');
+      var nativeSelect = root.querySelector('[data-option-select]');
+      var trigger = root.querySelector('[data-select-trigger]');
+      var valueEl = root.querySelector('[data-select-value]');
+      var optionsList = root.querySelector('[data-select-options]');
+      var items = optionsList.querySelectorAll('li');
+
+      function closeList() {
+        root.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        optionsList.hidden = true;
+      }
+
+      function openList() {
+        root.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        optionsList.hidden = false;
+      }
+
+      trigger.addEventListener('click', function () {
+        optionsList.hidden ? openList() : closeList();
+      });
+
+      items.forEach(function (item) {
+        item.addEventListener('click', function () {
+          var value = item.getAttribute('data-value');
+
+          items.forEach(function (i) { i.setAttribute('aria-selected', 'false'); });
+          item.setAttribute('aria-selected', 'true');
+          valueEl.textContent = value;
+
+          nativeSelect.value = value;
+          nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+          closeList();
+          trigger.focus();
+        });
+
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.click();
+          }
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!root.contains(e.target)) closeList();
+      });
+
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeList();
+      });
+
+      nativeSelect.addEventListener('change', function () {
+        var val = nativeSelect.value;
+        if (!val) return;
+        items.forEach(function (i) {
+          i.setAttribute('aria-selected', i.getAttribute('data-value') === val ? 'true' : 'false');
+        });
+        valueEl.textContent = val;
+      });
+
+    }); // end roots.forEach
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { initCustomSelects(); });
+  } else {
+    initCustomSelects();
+  }
+</script>

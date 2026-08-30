@@ -1,0 +1,189 @@
+{{ 'section-product-grid.css' | asset_url| stylesheet_tag }}
+
+<div class="product-grid">
+  <div class="product-grid__page-width">
+    {% if section.settings.title != blank %}
+      <div class="product-grid__title">
+        {{ section.settings.title }}
+      </div>
+    {% endif %}  
+    
+    <div class="product-grid__grid">
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        <div class="product-grid__grid-image">
+          {% if block.settings.image != blank %}
+            {{ block.settings.image
+              | image_url: width: 800
+              | image_tag :
+              width: block.settings.image.width, 
+              height: block.settings.image.height,
+              sizes: "33vw",
+              widths: '450, 660, 900',
+              loading: 'lazy',
+              class: 'grid-image-tag'
+            }}
+          {% else %}
+            {{ product.featured_image
+              | image_url: width: 800
+              | image_tag :
+              width: product.featured_image.width, 
+              height: product.featured_image.height,
+              sizes: "33vw",
+              widths: '450, 660, 900',
+              loading: 'lazy',
+              class: 'grid-image-tag'
+            }}
+          {% endif %}    
+
+          <style>
+            .product-grid__button-{{ block.id }} {
+              position: absolute;
+              left: {{ block.settings.horizontal_position }}%;
+              top: {{ block.settings.vertical_position }}%;
+              transform: translate(-50%);
+            }
+          </style>
+          <product-grid-button 
+            class="product-grid__button product-grid__button-{{ block.id }}"
+            data-template="template-{{ block.id }}"
+          >
+            {% render 'quick-view-open' %}
+          </product-grid-button>
+
+          <quick-view-template>
+
+            <script type="application/json" data-variants>
+              [
+                {% for variant in product.variants %}
+                {
+                  "id": {{ variant.id | json }},
+                  "available": {{ variant.available | json }},
+                  "price": {{ variant.price | money | json }},
+                  "option1": {{ variant.option1 | json }},
+                  "option2": {{ variant.option2 | json }},
+                  "option3": {{ variant.option3 | json }}
+                }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ]
+            </script>
+            <div class="quick-view__holder">
+              <div class="quick-view__content-top">
+                <div class="quick-view__image">
+                  {% if block.settings.image != blank %}
+                    {{ block.settings.image |
+                      image_url: width: 120 |
+                      image_tag:
+                      width: 120,
+                      height: 140,
+                      loading: 'eager',
+                      class: 'quick-view__image-tag'
+                    }}
+                  {% else %}
+                    {{ product.featured_image |
+                      image_url: width: 120 |
+                      image_tag:
+                      width: 120,
+                      height: 140,
+                      loading: 'eager',
+                      class: 'quick-view__image-tag'
+                    }}
+                  {% endif %}  
+                </div>
+                <div class="quick-view__info">
+                  <div class="quick-view__title">{{ product.title | escape }}</div>
+                  <div class="quick-view__price">{{ product.selected_or_first_available_variant.price | money_with_currency }}</div>
+                  <div class="quick-view__description">{{ product.description | truncatewords: 10 }}</div>
+                </div>
+              </div>
+              <div class="quick-view__content-bottom">
+                {% for option in product.options_with_values %}
+                  <div class="swatch-label">{{ option.name | escape }}</div>
+                  {% if option.name == 'color' or option.name == 'colour' or option.name == 'Color' %}
+                    <div class="color-swatches" data-option-index="{{ forloop.index0 }}">
+                      {% for value in option.values %}
+                        <div class="color-swatch-holder {% if value == option.selected_value %}is-active{% endif %}" data-value="{{ value | escape }}">
+                          <div class="color-swatch__color" style="background: {{ value | handle }};"></div>
+                          <div class="color-swatch-button">{{ value | escape }}</div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {% render 'custom-select', option: option, product: product, option_index: forloop.index0 %}
+                  {% endif %}    
+                {% endfor %}  
+              </div>
+               
+              <div class="quick-view__add-to-cart-holder is-disabled" data-quick-view-submit>
+                <div class="quick-view__add-to-cart">
+                  <span class="quick-view__add-to-cart-text">Add To Cart</span>
+                  <span class="quick-view__add-to-cart-spinner" aria-hidden="true"></span>
+                </div>
+                <div class="quick-view__cart-icon">{% render 'cart-button-icon' %}</div>
+              </div>
+
+              <div class="quick-view__close">{% render 'quick-view-close' %}</div>
+            </div>
+          </quick-view-template>  
+        </div>  
+      {% endfor %}  
+    </div>  
+  </div>
+</div>
+
+<script src="{{ 'product-grid.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "product grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "grid_block",
+      "name": "grid block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Cover Image",
+          "id": "image"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "label": "Horizontal Position",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "label": "Vertical Position",
+          "unit": "%",
+          "min": 0,
+          "max": 100,
+          "default": 80
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid"
+    }
+  ]
+}
+{% endschema %}
