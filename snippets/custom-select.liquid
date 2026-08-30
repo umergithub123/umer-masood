@@ -91,7 +91,7 @@
   }
 </style>
 
-<div class="select-swatches" data-custom-select>
+<div class="select-swatches" data-custom-select data-option-index="{{ option_index }}">
   <label class="select-swatches__label">{{ option.name }}</label>
 
   <div class="select-swatches__control">
@@ -100,9 +100,9 @@
       name="options[{{ option.name }}]"
       data-option-select
     >
-      <option value="" disabled selected>Choose your {{ option.name | downcase }}</option>
+      <option value="" disabled {% if option.selected_value == blank %}selected{% endif %}>Choose your {{ option.name | downcase }}</option>
       {% for value in option.values %}
-        <option value="{{ value }}">{{ value }}</option>
+        <option value="{{ value }}" {% if value == option.selected_value %}selected{% endif %}>{{ value }}</option>
       {% endfor %}
     </select>
 
@@ -113,7 +113,7 @@
       aria-expanded="false"
       data-select-trigger
     >
-      <span data-select-value>Choose your {{ option.name | downcase }}</span>
+      <span data-select-value>Choose Your Size</span>
       <svg class="select-swatches__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="6 9 12 15 18 9"></polyline>
       </svg>

@@ -22,8 +22,97 @@ document.addEventListener('DOMContentLoaded', ()=> {
   let quick_view_template = document.querySelectorAll('quick-view-template');
   quick_view_template.forEach((template)=>{
     template.addEventListener('click',(e)=> {
-      if (e.currentTarget.closest == 'quick-view__holder' && e.currentTarget != '')
+      // if (e.currentTarget.closest == 'quick-view__holder' && e.currentTarget != '')
     })
   })
 })
+
+class QuickViewTemplate extends HTMLElement {
+  connectedCallback() {
+    this.variants = JSON.parse(this.querySelector('[data-variants]').textContent);
+    this.priceEl = this.querySelector('.quick-view__price');
+    this.submitBtn = this.querySelector('[data-quick-view-submit]');
+    this.sizeOptionsList = this.querySelector('.select-swatches__options'); 
+
+    // seed selection from what Liquid already rendered as active/selected
+    this.selected = [];
+    this.querySelectorAll('[data-option-index]').forEach((control) => {
+      const index = Number(control.dataset.optionIndex);
+      const active = control.querySelector('.is-active[data-value]');
+      const select = control.querySelector('select');
+      this.selected[index] = active?.dataset.value || select?.value || undefined;
+    });
+
+    this.addEventListener('click', (e) => {
+      const swatch = e.target.closest('[data-value]');
+      if (swatch) this.selectOption(swatch.closest('[data-option-index]'), swatch.dataset.value);
+    });
+
+    this.addEventListener('change', (e) => {
+      const control = e.target.closest('[data-option-index]');
+      if (control) this.selectOption(control, e.target.value);
+    });
+
+    this.submitBtn.addEventListener('click', () => this.addToCart());
+
+    this.updateVariant();
+  }
+
+  selectOption(control, value) {
+    const index = Number(control.dataset.optionIndex);
+    this.selected[index] = value;
+
+    control.querySelectorAll('[data-value]').forEach((el) => {
+      el.classList.toggle('is-active', el.dataset.value === value);
+    });
+
+    this.updateVariant();
+  }
+
+  isSizeSelected() {
+    if (!this.sizeOptionsList) return true; // no size option on this product, don't block
+    return !!this.sizeOptionsList.querySelector('li.is-active');
+  }
+
+  updateVariant() {
+    this.variant = this.variants.find((v) =>
+      [v.option1, v.option2, v.option3].every(
+        (val, i) => this.selected[i] === undefined || val === this.selected[i]
+      )
+    );
+
+    if (this.variant) {
+      this.priceEl.textContent = this.variant.price;
+      if (this.isSizeSelected()) {
+        this.submitBtn.classList.toggle('is-disabled', !this.variant.available);
+      }
+    }
+  }
+
+  addToCart() {
+  
+    if (!this.variant?.available || !this.isSizeSelected() || this.submitBtn.classList.contains('is-loading')) return;
+
+    this.submitBtn.classList.add('is-loading', 'is-disabled');
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: this.variant.id, quantity: 1 })
+    })
+      .then((r) => r.json())
+      .then(() => {
+        this.submitBtn.classList.remove('is-loading');
+        window.location.href = window.Shopify?.routes?.root
+          ? `${window.Shopify.routes.root}cart`
+          : '/cart';
+      })
+      .catch((err) => {
+        this.submitBtn.classList.remove('is-loading', 'is-disabled');
+        console.error('Quick View: add to cart failed', err);
+      }) 
+  }
+}
+
+customElements.define('quick-view-template', QuickViewTemplate);
 
