@@ -131,7 +131,7 @@
   </div>
 </div>
 
-{{ 'product-grid.js' | asset_url | script_tag }}
+<script src="{{ 'product-grid.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
 {
