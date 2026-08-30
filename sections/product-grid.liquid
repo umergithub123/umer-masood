@@ -28,12 +28,12 @@
               transform: translate(-50%);
             }
           </style>
-          <div 
+          <product-grid-button 
             class="product-grid__button product-grid__button-{{ block.id }}"
             data-template="template-{{ block.id }}"
           >
             {% render 'quick-view-open' %}
-          </div>
+          </product-grid-button>
 
           {% assign product = block.settings.product %}
           <quick-view-template>
@@ -53,18 +53,29 @@
               ]
             </script>
             <div class="quick-view__holder">
-              <div class="quick-view__close">
-              </div>
+              {% comment %} <div class="quick-view__close">
+              </div> {% endcomment %}
               <div class="quick-view__content-top">
                 <div class="quick-view__image">
-                  {{ product.featured_image |
-                    image_url: width: 120 |
-                    image_tag:
-                    width: product.featured_image.width,
-                    height: product.featured_image.height,
-                    loading: 'lazy',
-                    class: 'quick-view__image-tag'
-                  }}
+                  {% if block.settings.image != blank %}
+                    {{ block.settings.image |
+                      image_url: width: 120 |
+                      image_tag:
+                      width: 120,
+                      height: 140,
+                      loading: 'eager',
+                      class: 'quick-view__image-tag'
+                    }}
+                  {% else %}
+                    {{ product.featured_image |
+                      image_url: width: 120 |
+                      image_tag:
+                      width: 120,
+                      height: 140,
+                      loading: 'eager',
+                      class: 'quick-view__image-tag'
+                    }}
+                  {% endif %}  
 
                 </div>
                 <div class="quick-view__info">

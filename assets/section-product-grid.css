@@ -1,37 +1,33 @@
 .product-grid__page-width {
-  max-width: 1337px;
-  margin: auto;
-  padding: 90px 0 51px;
+    padding: 40px 16px 23px;
 }
 
 .product-grid__title {
     font-family: Lustria;
     font-weight: 400;
-    font-size: 36px;
+    font-size: 24px;
     line-height: 120%;
     letter-spacing: 0;
     color: black;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 .product-grid__grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 19px;
-}
-
-.product-grid__grid-image {
-    width: 433px;
-    height: 444px;
+    gap: 4px;
 }
 
 .grid-image-tag {
     width: 100%;
     height: auto;
+    display: block;
 }
 
 .product-grid__grid-image {
     position: relative;
+    width: calc(50% - 2px);
 }
 
 .product-grid__button {
@@ -47,11 +43,13 @@ quick-view-template {
     height: 100%;
     display: none;
     z-index: 1;
+    overflow-y: auto;
 }
 
 .quick-view__holder {
     max-width: 311px;
-    max-height: 447px;
+    min-height: 447px;
+    width: 311px;
     background: white;
     box-shadow: 0px 2px 4px 0px #00000033;
     position: absolute;
@@ -59,6 +57,10 @@ quick-view-template {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 36px 17px 25px;
+}
+
+.quick-view__cart-icon {
+    line-height: 0;
 }
 
 quick-view-template.active {
@@ -204,6 +206,46 @@ div.color-swatch__color {
 }
 
 /* Media Query  */
+@media (min-width: 749px) {
+    .product-grid__page-width {
+      padding: 50px 16px 51px;
+    }
+
+    .product-grid__grid-image {
+      width: calc(33.33% - 13px);
+      height: auto;
+    }
+
+    .product-grid__title {
+      font-size: 36px;
+      padding-bottom: 30px;
+      text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-grid__page-width {
+      padding: 50px 51px 51px;
+    }
+
+    .product-grid__grid {
+      gap: 19px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .product-grid__page-width {
+      max-width: 1337px;
+      margin: auto;
+      padding: 90px 0 51px;
+    }
+
+    .product-grid__grid-image {
+        width: 433px;
+        height: 444px;
+    }
+}
+
 @media (min-width: 1920px) {
     .product-grid__page-width {
         max-width: 1820px;
@@ -220,7 +262,7 @@ div.color-swatch__color {
     width: 47px;
     height: 47px;
   }
-  
+
   .product-grid__page-width {
       max-width: 2844px;
   }

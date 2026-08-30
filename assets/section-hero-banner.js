@@ -1,9 +1,10 @@
 // Mobile Menu Click 
-document.addEventListener('DOMContentLoaded', ()=> {
-  let menu_click = document.querySelector('.banner-hero__mobile-menu-icon');
-  menu_click.addEventListener('click', (e)=> {
+class MobileMenuIcon extends HTMLElement {
+  connectedCallback() {
+    this.addEventListener('click', (e)=> {
+      this.classList.toggle('active');
+    })
+  }
+}
 
-    let currentElement = e.currentTarget;
-    currentElement.classList.toggle('active');
-  })
-})
+customElements.define('mobile-menu-icon',MobileMenuIcon)

@@ -100,6 +100,8 @@
   letter-spacing: 0;
   font-size: 30px;
   padding-bottom: 80px;
+  font-family: var(--font-heading-family);
+  font-weight: 500;
 }
 
 .banner-hero-content__text {

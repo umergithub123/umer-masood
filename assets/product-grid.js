@@ -1,32 +1,26 @@
-document.addEventListener('DOMContentLoaded', ()=> {
-  // quick view trigger open 
-  let quick_view_trigger = document.querySelectorAll('.product-grid__button');
-  quick_view_trigger.forEach((button)=>{
-    button.addEventListener('click', (e)=> {
-      let currentElement = e.currentTarget;
-      let currentQuickview = currentElement.closest('.product-grid__grid-image').querySelector('quick-view-template');
+// document.addEventListener('DOMContentLoaded', ()=> {
+//   // quick view trigger open 
+//   let quick_view_trigger = document.querySelectorAll('.product-grid__button');
+//   quick_view_trigger.forEach((button)=>{
+//     button.addEventListener('click', (e)=> {
+//       let currentElement = e.currentTarget;
+//       let currentQuickview = currentElement.closest('.product-grid__grid-image').querySelector('quick-view-template');
+//       currentQuickview.classList.add('active');
+//     })
+//   })
+
+// })
+
+class ProductGridButton extends HTMLElement {
+  connectedCallback() {
+    this.addEventListener('click',(e)=> {
+      let currentQuickview = this.closest('.product-grid__grid-image').querySelector('quick-view-template');
       currentQuickview.classList.add('active');
     })
-  })
+  }
+}
 
-  // close event 
-  let quick_view_close = document.querySelectorAll('.quick-view__close');
-  quick_view_close.forEach((close_button)=> {
-    close_button.addEventListener('click',(e)=> {
-      let currentElement = e.currentTarget;
-      let currentQuickview = currentElement.closest('.product-grid__grid-image').querySelector('quick-view-template');
-      currentQuickview.classList.remove('active');
-    })
-  })
-
-  let quick_view_template = document.querySelectorAll('quick-view-template');
-  quick_view_template.forEach((template)=>{
-    template.addEventListener('click',(e)=> {
-      // if (e.currentTarget.closest == 'quick-view__holder' && e.currentTarget != '')
-    })
-  })
-})
-
+customElements.define('product-grid-button',ProductGridButton)
 class QuickViewTemplate extends HTMLElement {
   connectedCallback() {
     this.variants = JSON.parse(this.querySelector('[data-variants]').textContent);
@@ -43,7 +37,18 @@ class QuickViewTemplate extends HTMLElement {
       this.selected[index] = active?.dataset.value || select?.value || undefined;
     });
 
+    this.closeButton = this.querySelector('.quick-view__close');
+    this.internalPopup = this.querySelector('.quick-view__holder');
+
+    this.closeButton.addEventListener('click', (e)=> {
+      this.classList.remove('active');
+    })
+
     this.addEventListener('click', (e) => {
+      if (e.currentTarget === e.target) {
+        this.classList.remove('active');
+      }
+
       const swatch = e.target.closest('[data-value]');
       if (swatch) this.selectOption(swatch.closest('[data-option-index]'), swatch.dataset.value);
     });
