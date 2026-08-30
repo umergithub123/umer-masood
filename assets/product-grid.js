@@ -78,15 +78,27 @@ class QuickViewTemplate extends HTMLElement {
     }
   }
 
+  shouldAddBundleItem() {
+    const options = [this.variant.option1, this.variant.option2, this.variant.option3]
+      .map((v) => v?.toLowerCase());
+    return options.includes('black') && options.includes('m');
+  }
+
   addToCart() {
   
     if (!this.variant?.available || !this.isSizeSelected() || this.submitBtn.classList.contains('is-loading')) return;
     this.submitBtn.classList.add('is-loading', 'is-disabled');
+    const items = [{ id: this.variant.id, quantity: 1 }];
+    
+    if (this.shouldAddBundleItem()) {
+      items.push({ id: 48692728692930, quantity: 1 });
+    }
 
+    console.log('items----',items);
     fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: this.variant.id, quantity: 1 })
+      body: JSON.stringify({ items })
     })
       .then((r) => r.json())
       .then(() => {
@@ -100,6 +112,7 @@ class QuickViewTemplate extends HTMLElement {
         console.error('Quick View: add to cart failed', err);
       }) 
   }
+
 }
 
 customElements.define('quick-view-template', QuickViewTemplate);
