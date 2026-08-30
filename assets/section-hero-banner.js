@@ -6,5 +6,4 @@ class MobileMenuIcon extends HTMLElement {
     })
   }
 }
-
 customElements.define('mobile-menu-icon',MobileMenuIcon)

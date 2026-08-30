@@ -1,16 +1,3 @@
-// document.addEventListener('DOMContentLoaded', ()=> {
-//   // quick view trigger open 
-//   let quick_view_trigger = document.querySelectorAll('.product-grid__button');
-//   quick_view_trigger.forEach((button)=>{
-//     button.addEventListener('click', (e)=> {
-//       let currentElement = e.currentTarget;
-//       let currentQuickview = currentElement.closest('.product-grid__grid-image').querySelector('quick-view-template');
-//       currentQuickview.classList.add('active');
-//     })
-//   })
-
-// })
-
 class ProductGridButton extends HTMLElement {
   connectedCallback() {
     this.addEventListener('click',(e)=> {
@@ -19,7 +6,6 @@ class ProductGridButton extends HTMLElement {
     })
   }
 }
-
 customElements.define('product-grid-button',ProductGridButton)
 class QuickViewTemplate extends HTMLElement {
   connectedCallback() {
@@ -28,7 +14,6 @@ class QuickViewTemplate extends HTMLElement {
     this.submitBtn = this.querySelector('[data-quick-view-submit]');
     this.sizeOptionsList = this.querySelector('.select-swatches__options'); 
 
-    // seed selection from what Liquid already rendered as active/selected
     this.selected = [];
     this.querySelectorAll('[data-option-index]').forEach((control) => {
       const index = Number(control.dataset.optionIndex);
@@ -48,7 +33,6 @@ class QuickViewTemplate extends HTMLElement {
       if (e.currentTarget === e.target) {
         this.classList.remove('active');
       }
-
       const swatch = e.target.closest('[data-value]');
       if (swatch) this.selectOption(swatch.closest('[data-option-index]'), swatch.dataset.value);
     });
@@ -75,7 +59,7 @@ class QuickViewTemplate extends HTMLElement {
   }
 
   isSizeSelected() {
-    if (!this.sizeOptionsList) return true; // no size option on this product, don't block
+    if (!this.sizeOptionsList) return true;
     return !!this.sizeOptionsList.querySelector('li.is-active');
   }
 
@@ -97,7 +81,6 @@ class QuickViewTemplate extends HTMLElement {
   addToCart() {
   
     if (!this.variant?.available || !this.isSizeSelected() || this.submitBtn.classList.contains('is-loading')) return;
-
     this.submitBtn.classList.add('is-loading', 'is-disabled');
 
     fetch('/cart/add.js', {

@@ -33,7 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 13px 0;
+    padding: 0 0 0 13px;
     background: #fff;
     border: 1px solid #111;
     font-size: 15px;
@@ -41,6 +41,23 @@
     cursor: pointer;
     font-family: inherit;
     height: 40px;
+  }
+
+  .select-swatches__text-icon {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
+
+  .select-swatches__icon {
+    width: 55px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #111;
   }
 
   .select-swatches__chevron {
@@ -93,7 +110,6 @@
 
 <div class="select-swatches" data-custom-select data-option-index="{{ option_index }}">
   <label class="select-swatches__label">{{ option.name }}</label>
-
   <div class="select-swatches__control">
     <select
       class="select-swatches__native"
@@ -113,10 +129,14 @@
       aria-expanded="false"
       data-select-trigger
     >
-      <span data-select-value>Choose Your Size</span>
-      <svg class="select-swatches__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"></polyline>
-      </svg>
+      <div class="select-swatches__text-icon">
+        <span data-select-value>Choose Your Size</span>
+        <div class="select-swatches__icon">
+          <svg class="select-swatches__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+      </div>
     </button>
 
     <ul class="select-swatches__options" role="listbox" data-select-options hidden>
@@ -131,71 +151,69 @@
   function initCustomSelects(scope) {
     scope = scope || document;
     var roots = scope.querySelectorAll('[data-custom-select]:not([data-select-initialized])');
-
     roots.forEach(function (root) {
       root.setAttribute('data-select-initialized', 'true');
+      var nativeSelect = root.querySelector('[data-option-select]');
+      var trigger = root.querySelector('[data-select-trigger]');
+      var valueEl = root.querySelector('[data-select-value]');
+      var optionsList = root.querySelector('[data-select-options]');
+      var items = optionsList.querySelectorAll('li');
 
-    var nativeSelect = root.querySelector('[data-option-select]');
-    var trigger = root.querySelector('[data-select-trigger]');
-    var valueEl = root.querySelector('[data-select-value]');
-    var optionsList = root.querySelector('[data-select-options]');
-    var items = optionsList.querySelectorAll('li');
+      function closeList() {
+        root.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        optionsList.hidden = true;
+      }
 
-    function closeList() {
-      root.classList.remove('is-open');
-      trigger.setAttribute('aria-expanded', 'false');
-      optionsList.hidden = true;
-    }
+      function openList() {
+        root.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        optionsList.hidden = false;
+      }
 
-    function openList() {
-      root.classList.add('is-open');
-      trigger.setAttribute('aria-expanded', 'true');
-      optionsList.hidden = false;
-    }
-
-    trigger.addEventListener('click', function () {
-      optionsList.hidden ? openList() : closeList();
-    });
-
-    items.forEach(function (item) {
-      item.addEventListener('click', function () {
-        var value = item.getAttribute('data-value');
-
-        items.forEach(function (i) { i.setAttribute('aria-selected', 'false'); });
-        item.setAttribute('aria-selected', 'true');
-        valueEl.textContent = value;
-
-        nativeSelect.value = value;
-        nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
-
-        closeList();
-        trigger.focus();
+      trigger.addEventListener('click', function () {
+        optionsList.hidden ? openList() : closeList();
       });
 
-      item.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          item.click();
-        }
+      items.forEach(function (item) {
+        item.addEventListener('click', function () {
+          var value = item.getAttribute('data-value');
+
+          items.forEach(function (i) { i.setAttribute('aria-selected', 'false'); });
+          item.setAttribute('aria-selected', 'true');
+          valueEl.textContent = value;
+
+          nativeSelect.value = value;
+          nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+          closeList();
+          trigger.focus();
+        });
+
+        item.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.click();
+          }
+        });
       });
-    });
 
-    document.addEventListener('click', function (e) {
-      if (!root.contains(e.target)) closeList();
-    });
-
-    trigger.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeList();
-    });
-
-    nativeSelect.addEventListener('change', function () {
-      var val = nativeSelect.value;
-      if (!val) return;
-      items.forEach(function (i) {
-        i.setAttribute('aria-selected', i.getAttribute('data-value') === val ? 'true' : 'false');
+      document.addEventListener('click', function (e) {
+        if (!root.contains(e.target)) closeList();
       });
-      valueEl.textContent = val;
-    });
+
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeList();
+      });
+
+      nativeSelect.addEventListener('change', function () {
+        var val = nativeSelect.value;
+        if (!val) return;
+        items.forEach(function (i) {
+          i.setAttribute('aria-selected', i.getAttribute('data-value') === val ? 'true' : 'false');
+        });
+        valueEl.textContent = val;
+      });
 
     }); // end roots.forEach
   }
@@ -205,5 +223,4 @@
   } else {
     initCustomSelects();
   }
-
 </script>
